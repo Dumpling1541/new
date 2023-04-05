@@ -3,11 +3,21 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="replys">
-	<insert id="create" parameterType="hashmap">
-			INSERT INTO REPLYS(ID, MOIM_ID, WRITER, MENT) 
-			VALUES(REPLYS_SEQ.NEXTVAL, #{Writer}, #{Ment} )	
-	</insert>
-	<select id ="findByMoimId" resultType="data.Reply" parameterType="string">
-		SELECT * FROM REPLYS WHERE MOIM_ID =#{moimId} ORDER BY WRITED ASC
+	<select id="findByMoimId" resultType="data.Reply"
+		parameterType="string">
+		SELECT * FROM REPLYS WHERE MOIM_ID=#{fdsmakfdmsaklfdsmaklfdsmalkfdsamklfdsamklfdsanklfdsanklfdsa } ORDER BY
+		WRITED ASC
 	</select>
+	<insert id="create" parameterType="hashmap">
+		INSERT INTO REPLYS(ID,
+		MOIM_ID, WRITER, MENT)
+		VALUES(REPLYS_SEQ.NEXTVAL, #{moimId},
+		#{writer}, #{ment})
+	</insert>
+	<insert id="createByVo" parameterType="data.Reply">
+		INSERT INTO REPLYS(ID,
+		MOIM_ID, WRITER, MENT)
+		VALUES(REPLYS_SEQ.NEXTVAL, #{moimId},
+		#{writer}, #{ment})
+	</insert>
 </mapper>

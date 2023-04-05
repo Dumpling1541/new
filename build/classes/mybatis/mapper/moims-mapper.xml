@@ -10,10 +10,21 @@
 		WHERE
 		ROWNUM &lt;=3
 	</select>
-	<select id="findById" resultType="data.Moim" parameterType="string">
+	<select id="findSomeByAtoB" resultType="data.Moim"
+		parameterType="hashmap">
+		SELECT * FROM
+		(SELECT ROWNUM RN, t.* FROM
+			(SELECT * FROM MOIMS WHERE BEGIN_DATE &gt; SYSDATE
+				ORDER BY BEGIN_DATE) t
+		) WHERE RN BETWEEN #{a} AND #{b}
+	</select>
+	<select id="findById" resultType="data.Moim"
+		parameterType="string">
 		SELECT * FROM MOIMS WHERE ID = #{id}
 	</select>
-	<update id="updateCurrentPerson"  parameterType="string" >
-		UPDATE MOIMS SET CURRENT_PERSON = CURRENT_PERSON + 1 WHERE ID = #{id}
+	<update id="updateCurrentPerson" parameterType="string">
+		UPDATE
+		MOIMS SET
+		CURRENT_PERSON = CURRENT_PERSON + 1 WHERE ID = #{id}
 	</update>
 </mapper>
