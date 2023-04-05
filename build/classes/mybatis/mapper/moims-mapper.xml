@@ -10,6 +10,13 @@
 		WHERE
 		ROWNUM &lt;=3
 	</select>
+	
+	<select id="countDatas" resultType="int"
+		parameterType="hashmap">
+		SELECT COUNT(*) FROM MOIMS WHERE BEGIN_DATE &gt; SYSDATE
+		
+	</select>
+	
 	<select id="findSomeByAtoB" resultType="data.Moim"
 		parameterType="hashmap">
 		SELECT * FROM

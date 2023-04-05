@@ -40,15 +40,34 @@ public class MoimSearchController extends HttpServlet{
 		SqlSession sqlSession = factory.openSession();
 		Map<String,Object> map = new HashMap<>();
 		
-		map.put("a", 1);
+		map.put("a", (p-1)*6+1);
 		map.put("b", 6*p);
 		
 		List<Moim> list = sqlSession.selectList("moims.findSomeByAtoB", map);
 		//		List<Moim> list =Moims.findByCate(cates);
+		int total = sqlSession.selectOne("moims.countDatas");
+				
 		sqlSession.close();
+
+		int lastPage = total / 6 +(total % 5 > 0 ? 1: 0);
+		
+		int last = (int)Math.ceil(p / 5.0)* 5;
+		
+		int st = last - 4;
+		
+		last = last > lastPage ? lastPage : last;
+		
 		
 		req.setAttribute("list", list);
-				
+		req.setAttribute("start", st);
+		req.setAttribute("last", last);		
+		
+		boolean existPrev = p>= 6;
+		boolean existNext = lastPage > last; 
+		
+		req.setAttribute("existPrev", existPrev);
+		req.setAttribute("existNext", existNext);
+		
 		req.getRequestDispatcher("/WEB-INF/views/moim/search.jsp").forward(req, resp);		
 	}
 }
